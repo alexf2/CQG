@@ -12,22 +12,31 @@ drives and shall only emulate these activities. Your goal is to write such File 
 * **MD** – creates a directory.
 Command format: MD [drive:]path
 Notes: MD should not create any intermediate directories in the path.
+
 Examples:
+
 **a)** MD C:\Test – creates a directory called Test\ in the root directory.
+
 **b)** MD Test – creates a subdirectory called Test\ in the current directory
+
 **c)** MD C:\Dir1\Dir2\NewDir – creates a subdirectory “NewDir” if directory “C:\Dir1\Dir2” exists.
 
 * **CD** – changes the current directory.
 Command format: CD [drive:][path]
 Note that using CD without parameters is not allowed.
+
 >Examples:
+
 **a)** CD C: – set root as the current directory.
+
 **b)** CD C:\Dir1 – set “C:\Dir1” as the current directory.
+
 **c)** CD Dir1 – set Dir1 subdirectory of the current directory as new current directory.
 
 * **RD** – removes a directory if it is empty (doesn’t contain any files or subdirectories).
 Command format: RD [drive:]path
 Notes: It is not allowed to delete the current directory in such way.
+
 >Examples:
 RD Dir2 – remove subdirectory “Dir2”.
 
@@ -40,6 +49,7 @@ See notes 3 and 4 also.
 Command format: MF [drive:]path
 Notes: If such file already exists with the given path then FME should continue to the next
 command in the batch file without any error rising.
+
 >Examples:
 MF Dir2\Dir3\file.txt – create a file named file.txt in the current directory’s “Dir2\Dir3”
 subdirectory.
@@ -49,9 +59,12 @@ Command format: MHL [drive:]source [drive:]destination
 Notes: Destination should contain only path without any file name. Actual link name will be created
 as mentioned in note 10. If such link already exists then FME should continue to the next
 command in the batch file without any error rising.
+
 >Examples:
+
 **a)** MHL C:\Dir2\Dir3\file.txt C:\Dir4 – create a hard link to the file “file.txt” and place it into the
 directory “C:\Dir4”
+
 **b)** MHL C:\Dir1\Dir4 C:\Dir2 – create a hard link to the directory “C:\Dir1\Dir4” and place it into
 the directory “C:\Dir2”
 
@@ -64,17 +77,23 @@ command in the batch file without any error rising.
 * **DEL** – removes a file or link.
 Command format: DEL [drive:]path
 Notes: See notes 3 and 4.
+
 >Examples:
+
 DEL C:\Dir2\Dir3\file.txt – removes a file “file.txt” form a directory “C:\Dir2\Dir3”.
 
 * **COPY** – copy an existed directory/file/link to another location.
 Command format: COPY [drive:]source [drive:]destination
 Notes: Program should copy directory with all its content. Destination path should not contain any
 file name otherwise FME should raise error.
+
 >Examples:
+
 **a)** COPY Dir2\Dir3\ C:\Dir1 – copy the current directory’s subdirectory Dir2\Dir3\ into C:\Dir1.
+
 **b)** COPY Dir2\Dir3\file.txt C:\Dir1 – copy a file “file.txt” form current directory’s subdirectory
 Dir2\Dir3\ into C:\Dir1.
+
 **c)** COPY Dir2\Dir3\file.txt C:\Dir1\newfile.txt – is illegal!
 
 * **MOVE** – move an existing directory/file/link to another location
@@ -83,8 +102,11 @@ Notes: Program should move directory with all its content. In case when a file o
 being moved has a hard link, FME should terminate the MOVE operation and batch file execution.
 In case when any dynamic link(s) found and no hard link exists, then dynamic link(s) should be
 modified and contain new location information instead of the old one.
+
 >Examples:
+
 **a)** Let suppose that we have the following directories structure –
+
 <pre>
 C:
 |_DIR1
@@ -101,6 +123,7 @@ C:
 And FME found command MOVE C:\DIR1\DIR2\DIR3 C:\DIR1\EDIR4 in a batch file.
 Following to our requirements FME should terminate command execution because of the
 hard link hlink[C:\DIR1\DIR2\DIR3\readme.txt] existence.
+
 **b)** Let suppose that we have a little bit different directories structure –
 <pre>
 C:
